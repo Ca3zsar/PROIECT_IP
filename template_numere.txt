@@ -8,7 +8,6 @@ sase
 sapte 
 opt
 noua
-zece
 suta
 sute
 mie
