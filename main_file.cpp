@@ -15,7 +15,8 @@ using namespace std;
 // Uses three auxiliar files for the template numbers. This way the template would not interfere with the code
 // Uses 3 modes: Romanian, English or French. The default mode will be Romanian with the posibilty of chaning it afterwards
 
-long long evaluate(),term(),factor(); //The functions used for the evaluation of the expression
+long long evaluate(string),term(string),factor(string); //The functions used for the evaluation of the expression
+void TakeTheInput();
 
 map<string,string>Operatie;
 map<string,int>Numar;
@@ -26,6 +27,8 @@ string fisier3 = "logs_"+lang+".txt";
 string fisier4 = "template_numere.txt";
 string fisier5 = "template_cifre.txt";
 
+int cont;
+int corect=1;
 string input_question;
 
 // Simulate a dictionary, where each word has a sign attributed
@@ -45,8 +48,8 @@ void MapTheFiles()
     f1.close();
     f2.close();
 
-    ifstream f1(fisier4);
-    ifstream f2(fisier5);
+    f1.open(fisier4);
+    f2.open(fisier5);
 
     while(getline(f1,cuvant) && f2>>num)
     {
@@ -57,9 +60,10 @@ void MapTheFiles()
     f2.close();
 }
 
-void log_print(int wrong = 0, string Question,string answer)
+void log_print(int wrong, string Question,string answer)
 {
-    ofstream fout(fisier3);
+    ofstream fout(fisier3,ios::app);
+
     fout<<Question<<'\n';
     if(wrong==1)
     {
@@ -98,11 +102,17 @@ vector<string> split_expression(string expression)
                 {
                     temp_word=temp_word+word[i];
                 }else{
-                    if(temp_word!=" " && !temp_word.empty())list_of_words.push_back(temp_word);
-                    temp_word.clear();
-                    temp_word=temp_word+word[i];
-                    list_of_words.push_back(temp_word);
-                    temp_word.clear();
+                    if(word[i]=='+' || word[i]=='-' || word[i]=='/' || word[i]=='*')
+                    {
+                        if(temp_word!=" " && !temp_word.empty())list_of_words.push_back(temp_word);
+                        temp_word.clear();
+                        temp_word=temp_word+word[i];
+                        list_of_words.push_back(temp_word);
+                        temp_word.clear();
+                    }else{
+                        log_print(1,input_question,"");
+                        TakeTheInput();
+                    }
                 }
             }
             if(!temp_word.empty() && temp_word!=" ")
@@ -207,6 +217,7 @@ vector<string> select_correct_words(vector<string> list_of_words)
                     correct_words.push_back(word);
                 }else{
                     log_print(1,input_question,"");
+                    corect=0;
                 }
             }
         }
@@ -219,7 +230,7 @@ vector<string> select_correct_words(vector<string> list_of_words)
 the normal form*/
 bool check_if_valid(vector<string>expression)
 {
-
+    return true;
 }
 
 /*Transforms the operations from the list of correct word into the analog 
@@ -230,24 +241,77 @@ string convert_to_math(vector<string> expression)
     return math_expression;
 }
 
-long long evaluate()
+string convert_to_expression(long long number)
 {
+    string final_number;
 
+    return final_number;
 }
 
-long long term()
-{
 
+long long evaluate(string exp)
+{
+    long long res = term(exp);
+    while(exp[cont]=='+' || exp[cont]=='-')
+    {
+        if(exp[cont]=='+')
+        {
+            cont++;
+            res+=term(exp);
+        }else{
+            cont++;
+            res=res-term(exp);         
+        }
+    }
+    return res;
 }
 
-long long factor()
+long long term(string exp)
 {
+    long long res = factor(exp);
+    while(exp[cont]=='*' || exp[cont]=='/' || exp[cont]=='%')
+    {
+        if(exp[cont]=='*')
+        {
+            cont++;
+            res=res*factor(exp);
+        }else{
+            if(exp[cont]=='/')
+            {
+                cont++;
+                res=res/factor(exp);
+            }else{
+                cont++;
+                res=res%factor(exp);
+            }
+        }
+    }
+    return res;
+}
 
+long long factor(string exp)
+{
+    long long res=0;
+    if(exp[cont]=='(')
+    {
+        cont++;
+        res = evaluate(exp);
+        cont++;
+    }else{
+        while(exp[cont]>='0' && exp[cont]<='9')
+        {
+            res=res*10+exp[cont]-'0';
+            cont++;
+        }
+    }
+    return res;
 }
 
 long long unsigned get_result_of_expression(string math_expression)
 {
     long long unsigned result;
+    cont = 0;
+    result = evaluate(math_expression);
     return result;
 }
 
@@ -264,8 +328,35 @@ void choose_language(int choice)
     fisier3 = "logs_"+lang+".txt";
 }
 
+void TakeTheInput()
+{
+    vector<string>list_of_words;
+    vector<string>correct_words;
+    string math_exp;
+    string final_result;
+    corect=1;
+    getline(cin,input_question);
+    list_of_words = split_expression(input_question);
+    correct_words = select_correct_words(list_of_words);
+    if(corect==0)return;
+    if(!check_if_valid(correct_words))
+    {
+        log_print(1,input_question,"");
+    }
+    
+    math_exp = convert_to_math(correct_words);
+    
+    long long result = get_result_of_expression(math_exp);
+    final_result = convert_to_expression(result);
+    log_print(0,input_question,final_result);
+}
+
 int main()
 {
     MapTheFiles();
+    while(true)
+    {
+        TakeTheInput();
+    }
     return 0;
 }
