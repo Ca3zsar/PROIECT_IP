@@ -6,6 +6,7 @@
 #include <map> //Used for creating a "dictionary"
 #include <algorithm> //For importing for_each
 #include "convertor.h"
+#include "convertor2.h"
 using namespace std;
 
 // Authors: Dobrovici Cristian && Todirisca Cezar

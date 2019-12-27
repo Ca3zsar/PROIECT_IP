@@ -52,8 +52,8 @@ int WordsToNumbers(string words) {
 			int index = words.find(powers[i], 0);
 			if (index >= 0 && words[index + powers[i].length()] == ' ')
 			{
-				uint64_t count = WordsToNumbers(words.substr(0, index));
-				number += count * (uint64_t)pow(1000, i/2);
+				int count = WordsToNumbers(words.substr(0, index));
+				number += count * (int)pow(1000, i/2);
 				words = words.erase(0, index+powers[i].length()+1);
 			}
 		}
@@ -65,13 +65,13 @@ int WordsToNumbers(string words) {
 
 		if ((index >= 0) && words[index + string("suta").length()] == ' ')
 		{
-			uint64_t count = WordsToNumbers(words.substr(0, index));
+			int count = WordsToNumbers(words.substr(0, index));
 			number += (count * 100);
 			words = words.erase(0, index+4+1);
 		}else{
 			if ((index2 >= 0) && words[index2 + string("sute").length()] == ' ')
 		{
-			uint64_t count = WordsToNumbers(words.substr(0, index2));
+			int count = WordsToNumbers(words.substr(0, index2));
 			number += (count * 100);
 			words = words.erase(0, index+4+1);
 		}
@@ -86,7 +86,7 @@ int WordsToNumbers(string words) {
 
 			if (index >= 0 && words[index + tens[i].length()] == ' ')
 			{
-				number += (unsigned int)(i * 10);
+				number += (int)(i * 10);
 				words = words.erase(index, tens[i].length());
 			}
 		}
@@ -101,7 +101,7 @@ int WordsToNumbers(string words) {
 
 			if (index >= 0 && words[index + teens[i].length()] == ' ')
 			{
-				number += (unsigned int)(i + 10);
+				number += (int)(i + 10);
 				words = words.erase(index,teens[i].length());
 			}
 		}
@@ -114,7 +114,7 @@ int WordsToNumbers(string words) {
 			int index = words.find(singles[i], 0);
 			if (index >= 0 && words[index + singles[i].size()] == ' ')
 			{
-				number += (unsigned int)(i/3);
+				number += (int)(i/3);
 				words = words.erase(index,singles[i].length()+1);
 				break;
 			}
