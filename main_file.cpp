@@ -5,6 +5,7 @@
 #include <sstream> //Included for stringstream
 #include <map> //Used for creating a "dictionary"
 #include <algorithm> //For importing for_each
+#include "convertor.h"
 using namespace std;
 
 // Authors: Dobrovici Cristian && Todirisca Cezar
@@ -19,15 +20,16 @@ long long evaluate(string),term(string),factor(string); //The functions used for
 void TakeTheInput();
 
 map<string,string>Operatie;
-map<string,int>Numar;
+
 string lang="ro";
 string fisier1 = "operatii_"+lang+".txt";
 string fisier2 = "modify_"+lang+".txt";
 string fisier3 = "logs_"+lang+".txt";
 string fisier4 = "template_numere.txt";
-string fisier5 = "template_cifre.txt";
+string fisier5 = "numere_ro.txt";
 
 int cont;
+int count_si,count_dintre;
 int corect=1;
 string input_question;
 
@@ -43,17 +45,6 @@ void MapTheFiles()
     while(getline(f1,cuvant) && getline(f2,semn))
     {
         Operatie[cuvant]=semn;
-    }
-
-    f1.close();
-    f2.close();
-
-    f1.open(fisier4);
-    f2.open(fisier5);
-
-    while(getline(f1,cuvant) && f2>>num)
-    {
-        Numar[cuvant]=num;
     }
 
     f1.close();
@@ -125,9 +116,9 @@ vector<string> split_expression(string expression)
     return list_of_words;
 }
 
-bool word_in_file(string word)
+bool word_in_file(string word,string f)
 {
-    ifstream reader(fisier1);
+    ifstream reader(f);
     string temp;
     while(getline(reader,temp))
     {
@@ -157,6 +148,26 @@ bool is_number(string word)
     return true;
 }
 
+string form_number(vector<string> list_of_words, int k)
+{
+    int size_of_list = list_of_words.size();
+    int number=0;
+    int temp=0;
+    while(k<size_of_list)
+    {
+        if(list_of_words[k] == "si")
+        {
+            count_si++;
+            k++;
+            continue;
+        }
+        if(word_in_file(list_of_words[k],fisier4))
+        {
+            
+        }
+    }
+}
+
 /*Select the correct words from the previous processed list
 by searching in the text files for every possible variation of the words.
 It mainly looks for the operations and for the possible numbers using the 
@@ -165,11 +176,10 @@ vector<string> select_correct_words(vector<string> list_of_words)
 {
     vector<string>correct_words;
     int size_of_list = list_of_words.size();
-    string word;
+    string word, temp;
     string simboluri = "()+-*/%";
 
-    bool apare_dintre = (find(list_of_words.begin(),list_of_words.end(),"dintre")!=list_of_words.end());
-    //We need this to check for the"si" between the numbers
+    corect = 1;
 
     //In cazul in care unele cuvinte contin o litera mare vor fi aduse la lowercase pentru
     // a se potrivi cu "dictionarul"
@@ -187,7 +197,7 @@ vector<string> select_correct_words(vector<string> list_of_words)
         list_of_words.erase(list_of_words.begin());
     }
 
-    for(int i=0; i<size_of_list; i++)
+    for(int i=0; i<size_of_list && corect; i++)
     {
         word = list_of_words[i];
         if(word.size()==1)
@@ -205,11 +215,14 @@ vector<string> select_correct_words(vector<string> list_of_words)
         }else{
             if(is_word(word))
             {
-                if(word_in_file(word))
+                if(word_in_file(word,fisier1))
                 {
                     correct_words.push_back(Operatie[word]);
                 }else{
-
+                    if(word_in_file(word,fisier4))
+                    {
+                        temp=form_number(list_of_words,i);
+                    }
                 }
             }else{
                 if(is_number(word))
@@ -335,6 +348,7 @@ void TakeTheInput()
     string math_exp;
     string final_result;
     corect=1;
+    count_dintre=count_si=0;
     getline(cin,input_question);
     list_of_words = split_expression(input_question);
     correct_words = select_correct_words(list_of_words);

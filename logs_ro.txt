@@ -1,0 +1,41 @@
+T4
+>> Input invalid
+A6 + D2?
+>> Input invalid
+A6 + D2?
+>> Input invalid
+A6?
+>> Input invalid
+A6 + D2?
+>> Input invalid
+DA
+>>
+NU2
+>> Input invalid
+ACS
+>>
+ACS2
+>> Input invalid
+a2+b4
+>> Input invalid
+
+
+Rezultatul op lui - cu -
+op dintre - si -
+Cat face - op -
+o suta
+>>
+o mie
+>>
+zece mii
+>>
+o suta de mii
+>>
+o suta de milioane
+>>
+o suta de milioane zece mii
+>>
+o mie doua zeci si patru
+>>
+4
+>>
