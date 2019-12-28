@@ -1,41 +1,14 @@
-T4
+Care este rezultatul impartirii lui 20 la 4
+>> douazeci
+Care este rezultatul impartirii lui 20 la 4
+>> cinci
+Care este restul impartirii lui 35 la 3
 >> Input invalid
-A6 + D2?
+Care este restul impartirii lui 35 la 3
 >> Input invalid
-A6 + D2?
+Care este restul impartirii lui 35 la 3
 >> Input invalid
-A6?
+Care este restul impartirii lui 35 la 3
 >> Input invalid
-A6 + D2?
+Care este rezultatul impartirii lui o mie doua sute trei si doi la doi
 >> Input invalid
-DA
->>
-NU2
->> Input invalid
-ACS
->>
-ACS2
->> Input invalid
-a2+b4
->> Input invalid
-
-
-Rezultatul op lui - cu -
-op dintre - si -
-Cat face - op -
-o suta
->>
-o mie
->>
-zece mii
->>
-o suta de mii
->>
-o suta de milioane
->>
-o suta de milioane zece mii
->>
-o mie doua zeci si patru
->>
-4
->>

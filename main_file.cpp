@@ -17,22 +17,28 @@ using namespace std;
 // Uses three auxiliar files for the template numbers. This way the template would not interfere with the code
 // Uses 3 modes: Romanian, English or French. The default mode will be Romanian with the posibilty of chaning it afterwards
 
-long long evaluate(string),term(string),factor(string); //The functions used for the evaluation of the expression
+int evaluate(string),term(string),factor(string); //The functions used for the evaluation of the expression
 void TakeTheInput();
 
 map<string,string>Operatie;
+map<string,int>Temp;
+map<string,int>Nums;
+string num1,num2;
 
 string lang="ro";
 string fisier1 = "operatii_"+lang+".txt";
 string fisier2 = "modify_"+lang+".txt";
 string fisier3 = "logs_"+lang+".txt";
 string fisier4 = "template_numere.txt";
-string fisier5 = "numere_ro.txt";
+string fisier5 = "template_cifre.txt";
+string fisier6 = "numere_ro.txt";
+string fisier7 = "numere_c_ro.txt";
 
-int cont;
-int count_si,count_dintre;
+int cont,pos;
 int corect=1;
 string input_question;
+string semn;
+vector<string>nums;
 
 // Simulate a dictionary, where each word has a sign attributed
 void MapTheFiles()
@@ -50,6 +56,29 @@ void MapTheFiles()
 
     f1.close();
     f2.close();
+
+    f1.open(fisier4);
+    f2.open(fisier5);
+
+    while(getline(f1,cuvant) && f2>>num)
+    {
+        Temp[cuvant]=num;
+    }
+
+    f1.close();
+    f2.close();
+
+    f1.open(fisier6);
+    f2.open(fisier7);
+
+    while(getline(f1,cuvant) && f2>>num)
+    {
+        Nums[cuvant]=num;
+    }
+
+    f1.close();
+    f2.close();
+
 }
 
 void log_print(int wrong, string Question,string answer)
@@ -65,15 +94,15 @@ void log_print(int wrong, string Question,string answer)
     }
 }
 
-/*Splits the expression into word by considering the separator to be the space
+/*Splits the expression into words by considering the separator to be the space
 It uses the stringstream to break the string into smaller pieces*/
 vector<string> split_expression(string expression) 
 {
     vector<string>list_of_words;
     if(expression.back()=='?')
         expression.pop_back();
-    stringstream splitter(expression);
     
+    stringstream splitter(expression);
     string word;
 
     int size_of_word;
@@ -94,16 +123,17 @@ vector<string> split_expression(string expression)
                 {
                     temp_word=temp_word+word[i];
                 }else{
-                    if(word[i]=='+' || word[i]=='-' || word[i]=='/' || word[i]=='*')
+                    if(word[i]=='+' || word[i]=='-' || word[i]=='/' || word[i]=='*' || word[i]=='%')
                     {
                         if(temp_word!=" " && !temp_word.empty())list_of_words.push_back(temp_word);
                         temp_word.clear();
+                        semn=word[i];
                         temp_word=temp_word+word[i];
                         list_of_words.push_back(temp_word);
                         temp_word.clear();
                     }else{
                         log_print(1,input_question,"");
-                        TakeTheInput();
+                        corect=0;
                     }
                 }
             }
@@ -149,26 +179,6 @@ bool is_number(string word)
     return true;
 }
 
-string form_number(vector<string> list_of_words, int k)
-{
-    int size_of_list = list_of_words.size();
-    int number=0;
-    int temp=0;
-    while(k<size_of_list)
-    {
-        if(list_of_words[k] == "si")
-        {
-            count_si++;
-            k++;
-            continue;
-        }
-        if(word_in_file(list_of_words[k],fisier4))
-        {
-            
-        }
-    }
-}
-
 /*Select the correct words from the previous processed list
 by searching in the text files for every possible variation of the words.
 It mainly looks for the operations and for the possible numbers using the 
@@ -206,11 +216,17 @@ vector<string> select_correct_words(vector<string> list_of_words)
             if(simboluri.find(word) != string::npos)
             {
                 correct_words.push_back(word);
+                semn=word;
             }
             else{
-                if(isdigit(word[0]))
+                if(isdigit(word[0]) || word[0]=='o')
                 {
                     correct_words.push_back(word);
+                }else{
+                    if(!isalpha(word[0])){
+                        log_print(1,input_question,"");
+                        corect=0;
+                    }
                 }
             }
         }else{
@@ -219,10 +235,11 @@ vector<string> select_correct_words(vector<string> list_of_words)
                 if(word_in_file(word,fisier1))
                 {
                     correct_words.push_back(Operatie[word]);
+                    if(semn != "%")semn=Operatie[word];
                 }else{
-                    if(word_in_file(word,fisier4))
+                    if(word_in_file(word,fisier4) || word_in_file(word,fisier6) || word=="si" || word=="lui" || word=="cu" || word=="la")
                     {
-                        temp=form_number(list_of_words,i);
+                        correct_words.push_back(word);
                     }
                 }
             }else{
@@ -244,6 +261,58 @@ vector<string> select_correct_words(vector<string> list_of_words)
 the normal form*/
 bool check_if_valid(vector<string>expression)
 {
+    string simboluri = "()+-*/%";
+    if(semn=="")return false;
+    int w_count=0;
+    int size_of_list=expression.size();
+    for(int i=0;i<size_of_list && w_count<=1;i++)
+    {
+        if(expression[i]=="si")
+        {
+            if(i==0 || expression[i-1]=="si")return false;
+            if(i>=1 && is_number(expression[i-1]))
+            {
+                w_count++;
+                if(pos==-1)pos=i;
+                else return false;
+                
+            }else{
+                if(word_in_file(expression[i-1],fisier6) && Nums[expression[i-1]]<20)
+                {
+                    w_count++;
+                    if(pos==-1)pos=i;
+                else return false;
+                }else{
+                    if(word_in_file(expression[i-1],fisier4))
+                    {
+                        w_count++;
+                        if(pos==-1)pos=i;
+                        else return false;
+                    }
+                }
+            }
+        }
+        if(i>=1 && expression[i-1]==expression[i])return false;
+        if(pos!=-1)
+        {
+            if(expression[i]=="cu" || expression[i]=="la" || expression[i]=="lui")return false;
+        }else{
+            if(expression[i]=="cu")pos=i;
+        }
+        if(i>=1)
+        {
+            if(simboluri.find(expression[i]) != string::npos){
+                if(pos==-1)pos=i;
+                else {
+                    if(semn=="%" && pos==0 && i==1){
+                        expression.erase(expression.begin()+i);
+                        i--;
+                    }else return false;
+                }
+            }
+        }
+    }
+    if(w_count>1)return false;
     return true;
 }
 
@@ -251,21 +320,72 @@ bool check_if_valid(vector<string>expression)
 symbol and the numbers from words to their decimal representations*/
 string convert_to_math(vector<string> expression)
 {
-    string math_expression;
+
+    string math_expression="";
+    string simboluri = "()+-*/%";
+    if(simboluri.find(expression[0]) != string::npos && pos!=-1)
+    {
+        swap(expression[pos],expression[0]);
+        expression.erase(expression.begin());
+    }
+    vector<string>::iterator it;
+    vector<string>::iterator it2;
+    it=find(expression.begin(),expression.end(),"lui");
+    cout<<semn<<'\n';
+    if(it!=expression.end())
+    {
+        if((semn=="/" || semn=="%" ))
+        {
+            
+            it2=find(expression.begin(),expression.end(),"la");
+            if(it2!=expression.end())
+            {
+                if(it<it2)
+                {
+                    if(is_number(*(it+1)))
+                    {
+                        math_expression = math_expression + *(it+1);
+                    }else{
+                        string temp="";
+                        ++it;
+                        for(;it<it2;it++)
+                        {
+                            temp=temp+*it;
+                        }
+                        math_expression = math_expression + to_string(WordsToNumbers(temp));
+                    }
+                    math_expression = math_expression + semn;
+                    if(is_number(*(it2+1)))
+                    {
+                        math_expression = math_expression + *(it2+1);
+                    }else{
+                        string temp="";
+                        ++it2;
+                        for(;it2<expression.end();it2++)
+                        {
+                            temp=temp+*it2;
+                        }
+                        math_expression = math_expression + to_string(WordsToNumbers(temp));
+                    }
+                }else{
+                    
+                }
+            }
+        }else{
+            if(semn=="-")
+            {
+                it2=find(expression.begin(),expression.end(),"din");
+            }else{
+                
+            }
+        }
+    }
     return math_expression;
 }
 
-string convert_to_expression(long long number)
+int evaluate(string exp)
 {
-    string final_number;
-
-    return final_number;
-}
-
-
-long long evaluate(string exp)
-{
-    long long res = term(exp);
+    int res = term(exp);
     while(exp[cont]=='+' || exp[cont]=='-')
     {
         if(exp[cont]=='+')
@@ -280,9 +400,9 @@ long long evaluate(string exp)
     return res;
 }
 
-long long term(string exp)
+int term(string exp)
 {
-    long long res = factor(exp);
+    int res = factor(exp);
     while(exp[cont]=='*' || exp[cont]=='/' || exp[cont]=='%')
     {
         if(exp[cont]=='*')
@@ -303,9 +423,9 @@ long long term(string exp)
     return res;
 }
 
-long long factor(string exp)
+int factor(string exp)
 {
-    long long res=0;
+    int res=0;
     if(exp[cont]=='(')
     {
         cont++;
@@ -321,9 +441,9 @@ long long factor(string exp)
     return res;
 }
 
-long long unsigned get_result_of_expression(string math_expression)
+int get_result_of_expression(string math_expression)
 {
-    long long unsigned result;
+    int result;
     cont = 0;
     result = evaluate(math_expression);
     return result;
@@ -349,20 +469,24 @@ void TakeTheInput()
     string math_exp;
     string final_result;
     corect=1;
-    count_dintre=count_si=0;
+    pos=-1;
+    semn="";
     getline(cin,input_question);
     list_of_words = split_expression(input_question);
+    if(corect==0)return;
     correct_words = select_correct_words(list_of_words);
     if(corect==0)return;
     if(!check_if_valid(correct_words))
     {
         log_print(1,input_question,"");
+        return;
     }
     
+
     math_exp = convert_to_math(correct_words);
-    
-    long long result = get_result_of_expression(math_exp);
-    final_result = convert_to_expression(result);
+    cout<<math_exp<<'\n';
+    int result = get_result_of_expression(math_exp);
+    final_result = NumToWord(result);
     log_print(0,input_question,final_result);
 }
 
