@@ -476,6 +476,13 @@ void TakeTheInput()
     if(corect==0)return;
     correct_words = select_correct_words(list_of_words);
     if(corect==0)return;
+
+    for(auto vec:correct_words)
+    {
+        cout<<vec<<' ';
+    }
+    cout<<'\n';
+
     if(!check_if_valid(correct_words))
     {
         log_print(1,input_question,"");

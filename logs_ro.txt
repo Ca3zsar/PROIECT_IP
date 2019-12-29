@@ -1,14 +1,16 @@
-Care este rezultatul impartirii lui 20 la 4
->> douazeci
-Care este rezultatul impartirii lui 20 la 4
->> cinci
-Care este restul impartirii lui 35 la 3
+Cat este 45%5?
+>>zero
+Cat este 40%3?
+>>zero
+Cat este 40 % 3?
+>>zero
+Cat este 40 % 3?
+>>zero
+Cat este 40 % 3?
+>>zero
+Cat este patruzeci modulo trei?
+>>zero
+Cat este patruzeci impartit la 3?
 >> Input invalid
-Care este restul impartirii lui 35 la 3
->> Input invalid
-Care este restul impartirii lui 35 la 3
->> Input invalid
-Care este restul impartirii lui 35 la 3
->> Input invalid
-Care este rezultatul impartirii lui o mie doua sute trei si doi la doi
->> Input invalid
+Cat este rezultatul impartirii lui treizeci la 3?
+>> zece
