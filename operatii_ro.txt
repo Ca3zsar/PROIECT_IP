@@ -36,3 +36,4 @@ plus
 minus
 inmultit
 impartit
+sumei

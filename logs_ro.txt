@@ -1,16 +1,140 @@
-Cat este 45%5?
+Rezultatul adunarii dintre 20 si 5
 >>zero
-Cat este 40%3?
+Rezultatul adunarii dintre 20 si 5
 >>zero
-Cat este 40 % 3?
->>zero
-Cat este 40 % 3?
->>zero
-Cat este 40 % 3?
->>zero
-Cat este patruzeci modulo trei?
->>zero
-Cat este patruzeci impartit la 3?
+Rezultatul adunarii dintre 20 si 5
+>>douazeci si cinci 
+Rezultatul adunarii dintre 1252 si 1321
+>>doua mii cinci sute saptezeci si trei 
+Rezultatul adunarii dintre doua sute si patruzeci
+>>patruzeci 
+Rezultatul adunarii dintre doua sute si patruzeci
+>>patruzeci 
+Rezultatul adunarii dintre doua sute si patruzeci
+>>patruzeci 
+Rezultatul adunarii dintre doua sute si patruzeci
+>>doua sute patruzeci 
+Rezultatul adunarii dintre doua mii si patru sute
+>>doua mii patru sute 
+rezultatul adunarii dintre doua sute si patru mii
+>>patru mii doua sute 
+Rezultatul adunarii dintre douazeci si patru
+>>cincizeci si unu 
+Rezultatul adunarii dintre 20 si 4
+>>douazeci si patru 
+Rezultatul adunarii dintre patru sute si o suta
+>>cinci sute 
+Rezultatul adunarii dintre trei si doi
+>>cinci 
+Rezultatul adunarii dintre 100 si o mie
+>>o mie o suta 
+Rezultatul adunarii dintre 10000 si o mie cinci sute patruzeci si doi
+>>unsprezece mii cinci sute patruzeci si doi 
+Care este suma dintre paisprezece si cinci
+>>nouasprezece 
+Care este suma dintre o suta si patru sute
+>>cinci sute 
+Care este rezultatul adunarii dintre 1000 si 203
+>>o mie doua sute trei 
+cat
 >> Input invalid
-Cat este rezultatul impartirii lui treizeci la 3?
->> zece
+Cat este
+>> Input invalid
+Cat este rezutatul adunarii dintre 3 si 4
+>>sapte 
+        for(auto vec:expression)cout<<vec<<' ';
+>> Input invalid
+        for(auto vec:expression)cout<<vec<<' ';
+>> Input invalid
+Cat este rezultatul adunarii lui 40 cu 3?
+>>patruzeci si trei 
+Cat este rezultatul adunarii lui 40 cu 3?
+>>patruzeci si trei 
+Cat este rezultatul adunarii lui 40 cu 3?
+>>patruzeci si trei 
+Cat este rezultatul adunarii lui 40 cu 3?
+>>patruzeci si trei 
+Cat este rezultatul adunarii lui 40 cu 3?
+>>patruzeci si trei 
+Cat este rezultatul adunarii lui 40 cu 3?
+>>patruzeci si trei 
+Cat este rezultatul adunarii lui 40 cu 3?
+>>patruzeci si trei 
+Cat este rezultatul adunarii lui 40 cu 3?
+>>patruzeci si trei 
+Care este suma dintre zece si paisprezece
+>>douazeci si patru 
+Care este suma dintre o mie doua sute patruzeci si cincizeci?
+>> Input invalid
+Care este suma dintre o mie doua sute patruzeci si cincizeci?
+>> Input invalid
+Care este suma dintre o mie doua sute patruzeci si cincizeci?
+>> Input invalid
+Care este suma dintre o mie doua sute patruzeci si cincizeci?
+>> Input invalid
+Care este suma dintre o mie doua sute patruzeci si cincizeci?
+>> Input invalid
+Care este suma dintre o mie doua sute patruzeci si cincizeci?
+>> Input invalid
+Care este suma dintre o mie doua sute patruzeci si cincizeci?
+>> Input invalid
+Care este suma dintre o mie doua sute patruzeci si cincizeci?
+>> Input invalid
+Care este suma dintre o mie doua sute patruzeci si cincizeci?
+>> Input invalid
+Care este suma dintre o mie doua sute patruzeci si cincizeci?
+>> Input invalid
+Care este suma dintre o mie doua sute patruzeci si cincizeci?
+>> Input invalid
+Care este suma dintre o mie doua sute patruzeci si cincizeci?
+>> Input invalid
+suma dintre doua sute si o mie
+>> Input invalid
+suma dintre o suta si 10000
+>>zece mii o suta 
+suma dintre o suta si o mie
+>>o mie 
+suma dintre o mie doua sute patruzeci si cinci si 10
+>>o mie doua sute cincizeci si cinci 
+rezultatul adunarii dintre o mie si o mie o suta
+>>o mie o suta 
+rezultatul adunarii dintre doua mii si cinci mii
+>>sapte mii 
+rezultatul adunarii dintre o mie si cinci mii
+>>sase mii 
+rezultatul adunarii dintre o mie si o mie o suta
+>>o mie o suta 
+rezultatul adunarii dintre o mie doua sute si o mie o suta
+>>o mie o suta 
+rezultatul adunarii dintre o mie doua sute si o mie o suta
+>>o mie o suta 
+rezultatul adunarii dintre o mie doua sute si o mie o suta
+>>o mie o suta 
+rezultatul adunarii dintre o mie doua sute si o mie o suta
+>>o mie o suta 
+rezultatul adunarii dintre o mie doua sute si o mie o suta
+>>o mie o suta 
+rezultatul adunarii dintre o mie doua sute si o mie o suta
+>>o mie o suta 
+rezultatul adunarii dintre o mie doua sute si o mie o suta
+>>doua mii trei sute 
+Rezultatul adunarii lui 14 cu 25?
+>>treizeci si noua 
+Rezultatul adunarii dintre 23 si 46
+>>saizeci si noua 
+Cat este suma dintre 23 si 46
+>>saizeci si noua 
+Cat este adunarea dintre 23 si 46
+>>saizeci si noua 
+Cat este suma numerelor 23 si 46
+>>saizeci si noua 
+Care este rezultatul adunarii dintre 23 si 46
+>>saizeci si noua 
+care este rezultatul adunarii dintre douazeci si trei si patruzeci si sase?
+>>saizeci si noua 
+care este rezultatul adunarii dintre doua mii patru sute saizeci si cinci si o mie doua sute?
+>>trei mii sase sute saizeci si cinci 
+care este suma dintre doua milioane cinci sute de mii si un milion patruzeci si cinci de mii?
+>>trei milioane cinci sute patruzeci si cinci de mii 
+care este suma dintre douazeci si patru si cinci?
+>>douazeci si noua 
