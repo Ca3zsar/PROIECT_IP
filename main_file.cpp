@@ -210,6 +210,7 @@ vector<string> select_correct_words(vector<string> list_of_words)
     for(int i=0; i<size_of_list && corect; i++)
     {
         word = list_of_words[i];
+        if(word=="de")correct_words.push_back("de");
         if(word.size()==1)
         {
             if(simboluri.find(word) != string::npos)
@@ -235,7 +236,7 @@ vector<string> select_correct_words(vector<string> list_of_words)
                 {
                     if(semn != "%"){
                         correct_words.push_back(Operatie[word]);
-                    semn=Operatie[word];
+                        semn=Operatie[word];
                     }
                 }else{
                     if(word_in_file(word,fisier4) || word_in_file(word,fisier6) || word=="si" || word=="lui" || word=="cu" || word=="la")
@@ -275,7 +276,6 @@ bool check_if_valid(vector<string>expression)
         if(it!=expression.end())expression.erase(it2);
     }
     int size_of_list=expression.size();
-    cout<<semn<<'\n';
     for(int i=0;i<size_of_list && w_count<=1;i++)
     {
         if(expression[i]=="si")
@@ -292,13 +292,43 @@ bool check_if_valid(vector<string>expression)
                     {
                         w_count++;
                         if(pos==-1)pos=i;
-                    else return false;
+                        else return false;
                     }else{
                         if(word_in_file(expression[i-1],fisier4))
                         {
                             w_count++;
                             if(pos==-1)pos=i;
                             else return false;
+                        }else{
+                            if(i<size_of_list-1)
+                            {
+                                if(Nums[expression[i+1]]>=10)
+                                {
+                                    w_count++;
+                                    if(pos==-1)pos=i;
+                                    else return false;
+                                }else{
+                                    if(is_number(expression[i+1]))
+                                    {
+                                        w_count++;
+                                        if(pos==-1)pos=i;
+                                        else return false;
+                                    }else{
+                                        if(size_of_list-i>2)
+                                        {
+                                            if(word_in_file(expression[i+1],fisier4))
+                                            {
+                                                if(word_in_file(expression[i+2],fisier4))
+                                                {
+                                                    w_count++;
+                                                    if(pos==-1)pos=i;
+                                                    else return false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -334,7 +364,7 @@ bool check_if_valid(vector<string>expression)
 symbol and the numbers from words to their decimal representations*/
 string convert_to_math(vector<string> expression)
 {
-
+    
     string math_expression="";
     string simboluri = "()+-*/%";
     //cout<<pos<<'\n';
@@ -344,10 +374,20 @@ string convert_to_math(vector<string> expression)
         expression.erase(expression.begin());
         pos--;
     }
-    
-    int size_of_list = expression.size();
-    vector<string>::iterator it;
+    vector<string>::iterator it=expression.begin();
     vector<string>::iterator it2;
+    int c=0;
+    while(it!=expression.end())
+    {
+        if(*it=="de")
+        {
+            it=expression.erase(it);
+            if(c<pos)pos--;
+        }
+        else it++;
+        c++;
+    }
+    int size_of_list = expression.size();
     it=find(expression.begin(),expression.end(),"lui");
     if((semn=="/" || semn=="%" ))
     {
@@ -439,13 +479,12 @@ string convert_to_math(vector<string> expression)
             {
                 math_expression = math_expression+*it2;
             }else{
-                cout<<pos<<'\n';
                 string temp="";
                 for(;*it2!=expression[pos];it2++)
                 {
                     temp = temp+' '+*it2;
                 }
-                //cout<<temp<<'\n';
+                cout<<temp<<'\n';
                 math_expression = math_expression + to_string(WordsToNumbers(temp));
             }
             math_expression = math_expression + semn;
@@ -561,15 +600,23 @@ void TakeTheInput()
     if(corect==0)return;
     if(!check_if_valid(correct_words))
     {
+        //cout<<c<<'\n';
         log_print(1,input_question,"");
         return;
     }
-    math_exp = convert_to_math(correct_words);
+    try{
+        math_exp = convert_to_math(correct_words);
+    }
+    catch(bad_alloc)
+    {
+        log_print(1,input_question,"");
+        return;
+    }
+    cout<<math_exp<<'\n';
     int result = get_result_of_expression(math_exp);
     final_result = NumToWord(result);
     log_print(0,input_question,final_result);
 }
-
 int main()
 {
     MapTheFiles();

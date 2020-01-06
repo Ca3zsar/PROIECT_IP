@@ -97,7 +97,7 @@ string NumToWord(int input)
         if(i>0)
         {
             if(v || v2 || v3){
-                if(v && ((exp[i*3+1]-'0')*10+(exp[i*3]-'0')>=20 || (exp[i*3+1]-'0')*10+(exp[i*3]-'0')==0))
+                if(((exp[i*3+1]-'0')*10+(exp[i*3]-'0')>=20 || (exp[i*3+1]-'0')*10+(exp[i*3]-'0')==0))
                 {
                     word = word + "de ";
                 }
