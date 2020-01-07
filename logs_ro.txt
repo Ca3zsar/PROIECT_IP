@@ -1,4 +1,8 @@
-Care este rezultatul adunarii dintre zece si douazeci?
->>treizeci 
-Care este suma numerelor patru sute douazeci si trei si cincisprezece?
->>patru sute treizeci si opt 
+Care este rezultatul inmultirii ditre 10 si doua sute?
+>>doua mii 
+Cat este inmultirea dintre 100 si o mie?
+>>o suta de mii 
+Cat este produsul numerelor 100 si doua sute?
+>>douazeci de mii 
+Cat este 100 inmultit cu 10?
+>> Input invalid

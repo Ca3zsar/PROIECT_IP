@@ -81,7 +81,10 @@ string NumToWord(int input)
                     }
                 }
                 else{
-                    if(exp[i*3]-'0'==2)word=word+"doua ";
+                    if(exp[i*3]-'0'==2){
+                        if(i==0)word=word+"doi ";
+                        else word=word+"doua ";
+                    }
                     else{
                         if(exp[i*3]-'0'==1)
                         {
