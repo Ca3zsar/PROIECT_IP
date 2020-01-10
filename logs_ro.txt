@@ -1,8 +1,8 @@
-Care este rezultatul inmultirii ditre 10 si doua sute?
->>doua mii 
-Cat este inmultirea dintre 100 si o mie?
->>o suta de mii 
-Cat este produsul numerelor 100 si doua sute?
->>douazeci de mii 
-Cat este 100 inmultit cu 10?
+doua sute patruzeci si doi - doua sute treizeci si unu - cinci * unu
+>>sase 
+doua sute patruzeci si doi - (doua sute treizeci si unu + cinci * unu)
 >> Input invalid
+doua sute patruzeci si doi - (232 + cinci* 2)
+>>zero
+doua sute patruzeci si doi - (231+ cinci*unu)
+>>sase 
