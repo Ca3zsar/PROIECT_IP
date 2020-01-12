@@ -69,6 +69,17 @@ string compute(string expression)
     vector<string>::iterator it=list_of_words.begin();
     for(;it<list_of_words.end();it++){
         if(!is_symbol(*it)){
+            if(it!=list_of_words.begin())
+            {
+                if(*it=="0" || *it=="zero")
+                {
+                    if(*(it-1)=="/")
+                    {
+                        log_print(0,input_question,"Input invalid. Impartire la 0");
+                        corect=0;
+                    }
+                }
+            }
             if(is_number(*it))math_exp = math_exp + *it;
             else if(is_word(*it))temp = temp + *it + ' ';
                 else {
@@ -82,5 +93,5 @@ string compute(string expression)
         }
     }
     if(temp!="")math_exp = math_exp + to_string(WordsToNumbers(temp));
-    return math_exp;
+    if(corect==1)return math_exp;
 }

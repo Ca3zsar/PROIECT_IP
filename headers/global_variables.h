@@ -9,6 +9,7 @@ map<string,int>Nums;
 string num1,num2;
 string semn;
 string input_question;
+string answer_to_the_question;
 
 string lang="ro";
 string fisier1 = "operatii_"+lang+".txt";
@@ -23,4 +24,5 @@ int pos;
 int corect;
 
 int point=0;
+int tip=0;
 

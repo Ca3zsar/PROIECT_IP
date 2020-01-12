@@ -8,10 +8,14 @@
 #include "headers/global_variables.h"
 #include "headers/aux_functions.h"
 #include "headers/interface_functions.h"
+#include "start_functions.h"
 #include <unistd.h>
 using namespace std;
 
 sf::RenderWindow main_frame(sf::VideoMode(600,600),"Natural language Calculator");
+int focus=0;
+
+string answer_to_show;
 
 void go_to_main_screen()
 {
@@ -22,21 +26,102 @@ void go_to_main_screen()
 
     sf::Event event;
 
+    sf::Text input_text;
+    input_text.setPosition(15,90);
+    input_text.setCharacterSize(10);
+    input_text.setFillColor(sf::Color(26,26,26));
+    input_text.setFont(main_font);
+
     sf::RectangleShape input_box;
     input_box.setSize(sf::Vector2f(580,50));
     input_box.setPosition(10,70);
     input_box.setFillColor(sf::Color(209, 220, 240));
+
+    sf::Text output_text;
+    output_text.setPosition(15,170);
+    output_text.setCharacterSize(10);
+    output_text.setFillColor(sf::Color(26,26,26));
+    output_text.setFont(main_font);
+
+    sf::RectangleShape output_box;
+    output_box.setSize(sf::Vector2f(580,50));
+    output_box.setPosition(10,150);
+    output_box.setFillColor(sf::Color(209, 220, 240));
 
     sf::Texture back_icon;
     back_icon.loadFromFile("back_icon.png");
     sf::Sprite back_button(back_icon);
     back_button.setPosition(535,15);
 
+    sf::RectangleShape expresie;
+    expresie.setSize(sf::Vector2f(110,40));
+    expresie.setPosition(150,400);
+    expresie.setFillColor(sf::Color(209, 220, 240));
+
+    sf::RectangleShape intrebare;
+    intrebare.setSize(sf::Vector2f(110,40));
+    intrebare.setPosition(360,400);
+    intrebare.setFillColor(sf::Color(209, 220, 240));
+
+    sf::Text ex("EXPRESIE",main_font);
+    ex.setCharacterSize(12);
+    ex.setPosition(153,415);
+    ex.setFillColor(sf::Color(26,26,26));
+
+    sf::Text intreb("INTREBARE",main_font);
+    intreb.setCharacterSize(12);
+    intreb.setPosition(359,415);
+    intreb.setFillColor(sf::Color(26,26,26));
+
+    sf::Text Introducere("Introduceti input-ul in casuta de mai jos",main_font);
+    Introducere.setCharacterSize(10);
+    Introducere.setPosition(10,35);
+
     while(main_frame.isOpen())
     {
+        string to_show;
+        for(int i=0;i<input_question.size();i++)
+        {
+            if(i>0 && i%45==0)to_show=to_show+'\n';
+            to_show=to_show+input_question[i];
+        }
+        if(answer_to_the_question!="")
+        {
+            answer_to_show="";
+            for(int i=0;i<answer_to_the_question.size();i++)
+            {
+                if(answer_to_the_question[i]==' ')
+                {
+                    int p=-1;
+                    for(int j=i+1;j<answer_to_the_question.size();j++)
+                    {
+                        if(answer_to_the_question[j]==' ')
+                        {
+                            p=j;
+                            break;
+                        }
+                    }
+                    if(p!=-1 && i%45>p%45)answer_to_show=answer_to_show+'\n';
+                    else answer_to_show = answer_to_show + ' ';
+                }else{
+                    answer_to_show = answer_to_show + answer_to_the_question[i];
+                }
+            }
+        }
         main_frame.clear(sf::Color(26,26,26));
         main_frame.draw(input_box);
+        main_frame.draw(output_box);
         main_frame.draw(back_button);
+        main_frame.draw(expresie);
+        main_frame.draw(intrebare);
+        main_frame.draw(ex);
+        main_frame.draw(intreb);
+        main_frame.draw(Introducere);
+        input_text.setString(to_show);
+        main_frame.draw(input_text);
+        output_text.setString(answer_to_show);
+        main_frame.draw(output_text);
+        //cout<<input<<'\n';
         if(main_frame.pollEvent(event))
         {
             if(event.type == sf::Event::Closed)
@@ -49,6 +134,79 @@ void go_to_main_screen()
                 {
                     sf::Vector2i coord = sf::Mouse::getPosition(main_frame);
                     if((coord.x>=535 && coord.x<=580 && coord.y>=15 && coord.y<=60))return;
+                    if((coord.x>=150 && coord.x<=260 && coord.y>=400 && coord.y<=440))
+                    {
+                        tip=1;
+                        expresie.setFillColor(sf::Color(255,0,0));
+                        intrebare.setFillColor(sf::Color(209, 220, 240));
+                    }
+                    if((coord.x>=360 && coord.x<=470 && coord.y>=400 && coord.y<=440))
+                    {
+                        tip=0;
+                        intrebare.setFillColor(sf::Color(255,0,0));
+                        expresie.setFillColor(sf::Color(209, 220, 240));
+                    }
+                    if(coord.x>=10 && coord.x<=590 && coord.y>=70 && coord.y<=120)
+                    {
+                        focus=1;
+                    }else focus=0;
+                }
+            }
+            if(event.type == sf::Event::KeyPressed)
+            {
+                if(focus)
+                {
+                    if(event.key.code>=sf::Keyboard::A && event.key.code<=sf::Keyboard::Z)
+                    {
+                        input_question=input_question+char(event.key.code+65);
+                    }
+                    if(event.key.code>=sf::Keyboard::Numpad0 && event.key.code<=sf::Keyboard::Numpad9)
+                    {
+                        input_question=input_question+char(event.key.code-27);
+                         cout<<input_question<<'\n';
+                    }
+                    if(event.key.code==sf::Keyboard::Backspace)
+                    {
+                        if(input_question.size())input_question.pop_back();
+                    }
+                    if(event.key.code==sf::Keyboard::Divide)
+                    {
+                        input_question=input_question+'/';
+                    }
+                    if(event.key.code==sf::Keyboard::Add)
+                    {
+                        input_question=input_question+'+';
+                    }
+                    if(event.key.code==sf::Keyboard::Space)
+                    {
+                        input_question=input_question+' ';
+                    }
+                    if(event.key.code==sf::Keyboard::Subtract)
+                    {
+                        input_question=input_question+'-';
+                    }
+                    if(event.key.code==sf::Keyboard::Multiply)
+                    {
+                        input_question=input_question+'*';
+                    }
+                    if(event.key.code==sf::Keyboard::LBracket)
+                    {
+                        input_question=input_question+'(';
+                    }
+                    if(event.key.code==sf::Keyboard::RBracket)
+                    {
+                        input_question=input_question+')';
+                    }
+                    if(event.key.code==sf::Keyboard::Slash)
+                    {
+                        input_question=input_question+'?';
+                    }
+                    if(event.key.code==sf::Keyboard::Enter)
+                    {
+                        Process(input_question);
+                        input_question="";
+
+                    }
                 }
             }
             
@@ -186,15 +344,16 @@ int main()
         
                         vector<string>Questions;
                         vector<string>Answers;
-                        Questions = read_questions();
-                        Answers = read_answers();
                         
-                        int size_of_list = Questions.size();
                         sf::Clock clk;
                         while(hist.isOpen())
                         {
                             hist.clear(sf::Color(26,26,26));
                             
+                            Questions = read_questions();
+                            Answers = read_answers();
+                        
+                            int size_of_list = Questions.size();
                             if(hist.pollEvent(evt))
                             {
                                 if(evt.type == sf::Event::Closed)
@@ -219,6 +378,10 @@ int main()
                                     {
                                         if(clk.getElapsedTime().asSeconds()>1)point++;
                                         clk.restart();
+                                    }
+                                    if(hist_p.x>=670 && hist_p.x<=770 && hist_p.y>=10 && hist_p.y<=40)
+                                    {
+                                        clear_the_file();
                                     }
                                 }
                                 if(evt.type==sf::Event::KeyPressed)
@@ -257,6 +420,17 @@ int main()
                             top_line.setPosition(0,0);
                             top_line.setFillColor(sf::Color(209, 220, 240));
                             hist.draw(top_line);
+
+                            sf::RectangleShape delete_button(sf::Vector2f(100,30));
+                            delete_button.setPosition(670,10);
+                            delete_button.setFillColor(sf::Color(26,26,26));
+                            hist.draw(delete_button);
+
+                            sf::Text del_text("DELETE",main_font);
+                            del_text.setFont(main_font);
+                            del_text.setCharacterSize(15);
+                            del_text.setPosition(675,15);
+                            hist.draw(del_text);
 
                             sf::RectangleShape first_line(sf::Vector2f(800,2));
                             first_line.setPosition(0,150);

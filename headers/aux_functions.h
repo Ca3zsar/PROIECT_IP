@@ -22,9 +22,11 @@ void log_print(int wrong, string Question,string answer)
     fout<<Question<<'\n';
     if(wrong==1)
     {
-        fout<<">> Input invalid\n";
+        fout<<">>Input invalid\n";
+        answer_to_the_question="Input invalid";
     }else{
         fout<<">>"<<answer<<'\n'; 
+        answer_to_the_question=answer;
     }
 }
 
@@ -154,4 +156,11 @@ vector<string> read_answers()
         }
     }
     return aux;
+}
+
+void clear_the_file()
+{
+    remove("logs_ro.txt");
+    ofstream f("logs_ro.txt");
+    point=0;
 }

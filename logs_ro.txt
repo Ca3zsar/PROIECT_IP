@@ -1,10 +1,20 @@
-doua sute patruzeci si doi - doua sute treizeci si unu - cinci * unu
->>sase 
-doua sute patruzeci si doi - (doua sute treizeci si unu + cinci * unu)
->> Input invalid
-doua sute patruzeci si doi - (232 + cinci* 2)
->>zero
-doua sute patruzeci si doi - (231+ cinci*unu)
->>sase 
-5 + 6
->>unsprezece 
+9999998 + 1
+>>noua milioane noua sute nouazeci si noua de mii noua sute nouazeci si noua 
+999998+1
+>>noua sute nouazeci si noua de mii noua sute nouazeci si noua 
+99998+1
+>>nouazeci si noua de mii noua sute nouazeci si noua 
+999988+1
+>>noua sute nouazeci si noua de mii noua sute optzeci si noua 
+999998+1
+>>noua sute nouazeci si noua de mii noua sute nouazeci si noua 
+999998+1
+>>noua sute nouazeci si noua de mii noua sute nouazeci si noua 
+999998+1
+>>noua sute nouazeci si noua de mii noua sute nouazeci si noua 
+999998+1
+>>noua sute nouazeci si noua de mii noua sute nouazeci si noua 
+999998+1
+>>noua sute nouazeci si noua de mii noua sute nouazeci si noua 
+999998+1
+>>noua sute nouazeci si noua de mii noua sute nouazeci si noua 
