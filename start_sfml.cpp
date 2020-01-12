@@ -121,7 +121,6 @@ void go_to_main_screen()
         main_frame.draw(input_text);
         output_text.setString(answer_to_show);
         main_frame.draw(output_text);
-        //cout<<input<<'\n';
         if(main_frame.pollEvent(event))
         {
             if(event.type == sf::Event::Closed)
@@ -163,7 +162,6 @@ void go_to_main_screen()
                     if(event.key.code>=sf::Keyboard::Numpad0 && event.key.code<=sf::Keyboard::Numpad9)
                     {
                         input_question=input_question+char(event.key.code-27);
-                         cout<<input_question<<'\n';
                     }
                     if(event.key.code==sf::Keyboard::Backspace)
                     {
@@ -200,6 +198,14 @@ void go_to_main_screen()
                     if(event.key.code==sf::Keyboard::Slash)
                     {
                         input_question=input_question+'?';
+                    }
+                    if(event.key.code==sf::Keyboard::Num5)
+                    {
+                        input_question=input_question+'%';
+                    }
+                    if(event.key.code==sf::Keyboard::Num6)
+                    {
+                        input_question=input_question+'^';
                     }
                     if(event.key.code==sf::Keyboard::Enter)
                     {

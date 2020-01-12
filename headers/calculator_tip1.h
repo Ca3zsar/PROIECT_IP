@@ -64,8 +64,6 @@ string compute(string expression)
     {
         list_of_words.push_back(word);
     }
-    for(auto vec:list_of_words)cout<<vec<<' ';
-    cout<<'\n';
     vector<string>::iterator it=list_of_words.begin();
     for(;it<list_of_words.end();it++){
         if(!is_symbol(*it)){
